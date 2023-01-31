@@ -1,0 +1,3 @@
+source catkin_ws/devel/setup.bash
+
+roslaunch ouster_ros sensor.launch sensor_hostname:=169.254.171.185 lidar_mode:=512x10
