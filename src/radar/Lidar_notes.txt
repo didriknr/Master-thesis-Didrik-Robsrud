@@ -1,3 +1,11 @@
 source catkin_ws/devel/setup.bash
 
 roslaunch ouster_ros sensor.launch sensor_hostname:=169.254.171.185 lidar_mode:=512x10
+
+
+source didrik_ws2/devel/setup.bash
+
+sudo chmod 666 /dev/ttyACM0
+sudo chmod 666 /dev/ttyACM1
+
+roslaunch ti_mmwave_rospkg 1843es1_long_range.launch
