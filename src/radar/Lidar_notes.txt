@@ -9,3 +9,12 @@ sudo chmod 666 /dev/ttyACM0
 sudo chmod 666 /dev/ttyACM1
 
 roslaunch ti_mmwave_rospkg awr1843boost_test.launch
+
+
+Hvordan restarte radar:
+
+  - Trekk ut både power og usb
+  - vent
+  - sett i usb
+  - sett i power
+
