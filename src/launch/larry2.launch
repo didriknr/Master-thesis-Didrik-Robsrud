@@ -1,0 +1,40 @@
+<launch>
+
+    <arg name="LiDAR_IP" default="169.254.171.185"/>
+    <arg name="LiDAR_ns" default="LiDAR"/>
+    <arg name="LiDAR_tf_name" default="LiDAR_tf"/>
+    <arg name="tf_tree" default="true"/>
+    <arg name="rviz_show" default="true"/>
+    <arg name="base_link_name" default="base"/>
+    
+
+    <arg name="pi" value="3.14159265359" />
+    
+
+    <include file="$(find ouster_ros)/launch/sensor.launch">
+        <arg name="lidar_mode" value="512x10"/>
+        <arg name="sensor_hostname" value="$(arg LiDAR_IP)"/>
+        <arg name="ouster_ns" value="$(arg LiDAR_ns)"/>
+        <arg name="viz" value="false"/>
+        <arg name="tf_prefix" value="$(arg LiDAR_tf_name)"/>       
+    </include>
+    
+    <!-- /home/uia/didrik_ws5/src/ti_mmwave_rospkg/launch/awr1843boost_test.launch-->
+    <!-- /home/uia/didrik_ws5/src/launch/radar.launch-->
+
+    <include file="/home/uia/didrik_ws5/src/launch/radar.launch">
+        <arg name="viz" value="false"/>
+    </include>
+
+    <!--Tf for radar -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base_radar_link"
+        args="-0.32 0 0 $(arg pi) 0 0 $(arg base_link_name) ti_mmwave_pcl"/>
+
+    <!--Tf for LiDAR -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base_LiDAR_link"
+        args="0 0 0.4 0 0 0 $(arg base_link_name) $(arg LiDAR_tf_name)/os_sensor"/>
+
+    <node if="$(arg rviz_show)" 
+        pkg="rviz" type="rviz" name="rviz_open" args="-d /home/uia/didrik_ws5/src/launch/rviz/rviz1.rviz"/>
+
+</launch>

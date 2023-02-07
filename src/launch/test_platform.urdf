@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="Larry">
+
+  <link name="base_link"/>
+  <link name="lidar_link"/>
+  <link name="ti_link"/>
+
+
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0.175 0 0.505" rpy="0 0 3.14"/>
+  </joint>
+
+  <joint name="ti_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="ti_link"/>
+    <origin xyz="0.2 0 0.1" rpy="0 0 0"/>
+  </joint>
+
+
+</robot>
+
+
