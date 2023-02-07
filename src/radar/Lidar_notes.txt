@@ -20,3 +20,6 @@ Hvordan restarte radar:
 
 run after lauch
 roslaunch didrik_ws3/src/launch/larry2.launch
+
+rosrun tf view_frames
+evince frames.pdf
