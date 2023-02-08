@@ -21,8 +21,9 @@
     
     <!-- /home/uia/didrik_ws5/src/ti_mmwave_rospkg/launch/awr1843boost_test.launch-->
     <!-- /home/uia/didrik_ws5/src/launch/radar.launch-->
+    <!-- /home/xavier2/didrik_ws5/src/Master-thesis-Didrik-Robsrud/launch/radar.launch-->
 
-    <include file="/home/uia/didrik_ws5/src/launch/radar.launch">
+    <include file="/home/xavier2/didrik_ws5/src/Master-thesis-Didrik-Robsrud/launch/radar.launch">
         <arg name="viz" value="false"/>
     </include>
 
