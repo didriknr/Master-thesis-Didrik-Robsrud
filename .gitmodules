@@ -2,14 +2,13 @@
 	path = ouster-ros
 	url = https://github.com/ouster-lidar/ouster-ros.git
 
-#[submodule "ouster-sdk"]
-#	path = ouster-ros/ouster-sdk
-#	url = https://github.com/ouster-lidar/ouster_example.git
+[submodule "ouster-sdk"]
+	path = ouster-ros/ouster-sdk
+	url = https://github.com/ouster-lidar/ouster_example.git
 
-
-[submodule "ouster-ros"]
-	path = ouster-ros
-	url = https://github.com/ouster-lidar/ouster-ros.git
+#[submodule "ouster-ros"]
+#	path = ouster-ros
+#	url = https://github.com/ouster-lidar/ouster-ros.git
 
 [submodule "ti_mmwave_rospkg"]
 	path = ti_mmwave_rospkg
