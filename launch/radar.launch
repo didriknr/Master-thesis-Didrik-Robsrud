@@ -24,7 +24,7 @@
        
 
   <!-- mmWave_Manager node -->
-  <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" name="ti_mmwave"
+  <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" name="$(arg device_name)"
         output="screen">
     <param name="command_port" value="$(arg command_port)"  />
     <param name="command_rate" value="115200"   />
@@ -34,7 +34,7 @@
            value="$(arg max_allowed_elevation_angle_deg)"   />
     <param name="max_allowed_azimuth_angle_deg"
            value="$(arg max_allowed_azimuth_angle_deg)"   />
-    <param name="frame_id" value="ti_mmwave"/>
+    <param name="frame_id" value="$(arg device_name)"/>
   </node>
 
   <!-- mmWaveQuickConfig node (terminates after configuring mmWave sensor) -->
