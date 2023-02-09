@@ -35,3 +35,6 @@ rosdep install --from-paths src -y --ignore-src
 apologies for the late reply. Simply open the CMakeLists.txt at /catkin_ws/src/ti_mmwave_rospkg
 change the line add_definitions(-std=c++11) to add_definitions(-std=c++14)
 https://github.com/PointCloudLibrary/pcl/issues/2968
+
+ssh xavier2@192.168.0.106
+
