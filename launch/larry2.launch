@@ -35,9 +35,9 @@
         </include>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg radar1_name)_link"
-            args="-0.32 1 0 $(arg pi) 0 0 $(arg base_link_name) $(arg radar1_name)_pcl"/>            
+            args="-0.32 0 0 $(arg pi) 0 0 $(arg base_link_name) $(arg radar1_name)_pcl"/>            
     </group>
-    
+ 
 
     <include file="$(find ouster_ros)/launch/sensor.launch">
         <arg name="lidar_mode" value="512x10"/>
