@@ -55,7 +55,7 @@
         args="0 0 0.4 0 0 0 $(arg base_link_name) $(arg LiDAR_tf_name)/os_sensor"/>
 
     <node if="$(arg rviz_show)" 
-        pkg="rviz" type="rviz" name="rviz_open" args="-d /home/uia/didrik_ws5/src/launch/rviz/rviz1.rviz"/>
+        pkg="rviz" type="rviz" name="rviz_open" args="-d $(dirname)/rviz/rviz1.rviz"/>
 
 </launch>
 
