@@ -12,7 +12,7 @@
 
 [submodule "ti_mmwave_rospkg"]
 	path = ti_mmwave_rospkg
-	url = https://github.com/Claud1234/ti_mmwave_rospkg
+	url = https://github.com/didriknr/ti_mmwave_rospkg
 
 [submodule "serial"]
 	path = serial
