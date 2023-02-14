@@ -28,7 +28,8 @@ evince frames.pdf
 This fixed submodules
 git submodule update --init --recursive
 
-
+rosdep update
+sudo rosdep init
 rosdep install --from-paths src -y --ignore-src
 
 
