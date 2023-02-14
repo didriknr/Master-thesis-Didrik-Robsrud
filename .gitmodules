@@ -10,7 +10,7 @@
 #	path = ouster-ros
 #	url = https://github.com/ouster-lidar/ouster-ros.git
 
-[submodule "ti_mmwave_rospkg"]
+[submodule "ti_mmwave_rospkg_"]
 	path = ti_mmwave_rospkg_
 	url = https://github.com/didriknr/ti_mmwave_rospkg_
 	branch = master
