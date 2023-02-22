@@ -38,4 +38,4 @@ change the line add_definitions(-std=c++11) to add_definitions(-std=c++14)
 https://github.com/PointCloudLibrary/pcl/issues/2968
 
 ssh xavier2@192.168.0.106
-
+ssh xavier1@192.168.0.169
