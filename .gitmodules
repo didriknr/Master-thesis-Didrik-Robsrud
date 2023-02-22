@@ -6,10 +6,6 @@
 	path = ouster-ros/ouster-sdk
 	url = https://github.com/ouster-lidar/ouster_example.git
 
-#[submodule "ouster-ros"]
-#	path = ouster-ros
-#	url = https://github.com/ouster-lidar/ouster-ros.git
-
 [submodule "ti_mmwave_rospkg"]
 	path = ti_mmwave_rospkg
 	url = https://github.com/didriknr/ti_mmwave_rospkg
@@ -18,5 +14,10 @@
 [submodule "serial"]
 	path = serial
 	url = https://github.com/wjwwood/serial.git
+
+[submodule "pointcloud_to_laserscan"]
+	path = pointcloud_to_laserscan
+	url = https://github.com/ros-perception/pointcloud_to_laserscan.git
+	branch = lunar-devel
 
 
