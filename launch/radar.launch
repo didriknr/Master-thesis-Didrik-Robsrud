@@ -24,8 +24,7 @@
        
 
   <!-- mmWave_Manager node -->
-  <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" name="$(arg device_name)"
-        output="screen">
+  <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" name="$(arg device_name)">
     <param name="command_port" value="$(arg command_port)"  />
     <param name="command_rate" value="115200"   />
     <param name="data_port" value="$(arg data_port)"  />
@@ -40,7 +39,8 @@
   <!-- mmWaveQuickConfig node (terminates after configuring mmWave sensor) -->
   <node pkg="ti_mmwave_rospkg" type="mmWaveQuickConfig" name="mmWaveQuickConfig"
         args="$(find ti_mmwave_rospkg)/cfg/2d/best_range_reso.cfg"
-        output="screen"/>
+        />
+        <!-- output="screen" -->
 
   <!-- Static transform from map to base_radar_link for visualization of
         stand-alone mmWave sensor using Rviz -->
