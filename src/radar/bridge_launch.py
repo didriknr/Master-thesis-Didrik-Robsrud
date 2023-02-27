@@ -39,3 +39,5 @@ def generate_launch_description():
     ld.add_action(ros1_bridge)
 
     return ld
+
+Caught exception in launch (see debug for traceback): Caught exception when trying to load file of format [py]: __init__() missing 1 required keyword-only argument: 'node_executable'
