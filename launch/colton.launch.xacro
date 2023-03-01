@@ -16,9 +16,70 @@
     
     
     <arg name="pi" value="3.14159265359" />
+
+    <xacro:macro name="common" params="device_type arg0 arg1 name base_link_name x y z rx ry rz min_height max_height scan_time use_inf range_min range_max">
+        <xacro:property name="device_type_xo" value="$(arg device_type)"/>
+        <arg name="cloud_name" value="/$(arg name)/$(arg name)_cloud"/>
+        <arg name="link_node_name" value="$(arg base_link_name)_$(arg name)_link"/>
+        <arg name="link_name" value="$(arg name)_link"/>
+        
+        <group ns="$(arg name)">
+            <xacro:if value="${device_type_xo == 'radar'}">
+                <xacro:include_radar name="$(arg name)" cloud_name="$(arg cloud_name)" command_port="$(arg arg0)" data_port="$(arg arg1)"/>
+            </xacro:if>
+
+            <xacro:if value="${device_type_xo == 'lidar'}">
+                <xacro:include_lidar name="$(arg name)" cloud_name="$(arg cloud_name)" link_name="$(arg link_name)" LiDAR_IP="$(arg arg0)"/>
+            </xacro:if>
+
+            <node pkg="tf" type="static_transform_publisher" name="$(arg link_node_name)"
+                args="$(arg x) $(arg y) $(arg z) $(arg rx) $(arg ry) $(arg rz) $(arg base_link_name) $(arg link_name) 30"/>  
+            
+            <xacro:flatten cloud_name="/$(arg cloud_name)" min_height="$(arg min_height)" max_height="$(arg max_height)" 
+                scan_time="$(arg scan_time)" use_inf="$(arg use_inf)" range_min="$(arg range_min)" range_max="$(arg range_max)"/>
+                
+        </group>
+    </xacro:macro>
+
+    <xacro:macro name="flatten" params="cloud_name min_height max_height scan_time use_inf range_min range_max">
+        <remap from="cloud_in" to="/$(arg cloud_name)"/>
+
+        <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="LiDAR_scan_node">
+            <param name="min_height" value="$(arg min_height)"/>
+            <param name="max_height" value="$(arg max_height)"/>
+            <param name="scan_time" value="$(arg scan_time)"/>
+            <param name="use_inf" value="$(arg use_inf)"/>
+            <param name="target_frame" value="$(arg base_link_name)"/>
+            <param name="range_min" value="0.8"/>
+            <param name="range_max" value="120"/>
+            <param name="transform_tolerance" value="0.01"/>
+        </node>
+    </xacro:macro>
+
+    <xacro:macro name="include_radar" params="name cloud_name command_port data_port">
+        <remap from="/ti_mmwave/radar_scan_pcl" to="/$(arg cloud_name)"/>
+        <include file="$(dirname)/radar.launch">
+            <arg name="device_name" value="$(arg name)"/>
+            <arg name="command_port" value="$(arg command_port)"/>
+            <arg name="data_port" value="$(arg data_port)"/>
+            <arg name="viz" value="false"/>                      
+        </include>
+    </xacro:macro>
+
+    <xacro:macro name="include_lidar" params="LiDAR_IP name cloud_name link_name">
+        <include file="$(find ouster_ros)/launch/sensor.launch">
+            <arg name="lidar_mode" value="512x10"/>
+            <arg name="sensor_hostname" value="$(arg LiDAR_IP)"/>
+            <arg name="ouster_ns" value="$(arg name)"/>
+            <arg name="viz" value="false"/>
+            <arg name="tf_prefix" value="$(arg link_name)"/>       
+        </include>
+    </xacro:macro>
   
+
     
-    <group ns="$(arg radar1_name)"> 
+    
+ <!--   <group ns="$(arg radar1_name)"> 
 	    <remap from="/ti_mmwave/radar_scan_pcl" to="/$(arg radar1_name)/$(arg radar1_name)_scan_pcl"/>
         <!--<remap from="/ti_mmwave/radar_scan_pcl" to="/$(arg radar1_name)/cloud_in"/> -->
         <!--<remap from="/$(arg radar1_name)_scan_pcl" to="/cloud_in"/> -->
@@ -29,8 +90,8 @@
             <arg name="viz" value="false"/>                      
         </include>
 
-        <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg radar1_name)_link"
-            args="-0.32 -0.0815 0 $(arg pi) 0 0 $(arg base_link_name) $(arg radar1_name)_pcl"/>     
+        <node pkg="tf" type="static_transform_publisher" name="base_$(arg radar1_name)_link"
+            args="-0.32 -0.0815 0 $(arg pi) 0 0 $(arg base_link_name) $(arg radar1_name)_pcl 30"/>     
             
         
     
@@ -146,4 +207,5 @@
 </launch>
 
 <!--http://wiki.ros.org/roslaunch/XML-->
-<!--https://jokane.net/agitr/agitr-small-launch.pdf-->
+<!--https://jokane.net/agitr/agitr-small-launch.pdf-->-->
+<!--http://wiki.ros.org/xacro-->-->

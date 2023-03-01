@@ -29,8 +29,8 @@
             <arg name="viz" value="false"/>                      
         </include>
 
-        <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg radar1_name)_link"
-            args="-0.32 -0.0815 0 $(arg pi) 0 0 $(arg base_link_name) $(arg radar1_name)_pcl"/>     
+        <node pkg="tf" type="static_transform_publisher" name="base_$(arg radar1_name)_link"
+            args="-0.32 -0.0815 0 $(arg pi) 0 0 $(arg base_link_name) $(arg radar1_name)_pcl 30"/>     
             
         
     
