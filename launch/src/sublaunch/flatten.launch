@@ -1,0 +1,25 @@
+<launch>
+
+    <arg name="input_PointCloud"    default="/PointCloud"/>
+    <arg name="device_frame"        default="frame"/>
+    <arg name="min_height"          default="-1"/>
+    <arg name="max_height"          default="1"/>
+    <arg name="range_min"           default="0"/>
+    <arg name="range_max"           default="10"/>
+    <arg name="scan_time"           default="0.1"/>
+    <arg name="use_inf"             default="true"/>
+    <arg name="transform_tolerance" default="0.01"/>
+    
+    <remap from="cloud_in" to="/$(arg input_PointCloud)"/>
+
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="PointClound_to_scan">
+        <param name="min_height"            value="$(arg min_height)"/>
+        <param name="max_height"            value="$(arg max_height)"/>
+        <param name="scan_time"             value="$(arg scan_time)"/>
+        <param name="use_inf"               value="$(arg use_inf)"/>
+        <param name="target_frame"          value="$(arg device_frame)"/>
+        <param name="range_min"             value="$(arg range_min)"/>
+        <param name="range_max"             value="$(arg range_max)"/>
+        <param name="transform_tolerance"   value="$(arg transform_tolerance)"/>
+    </node>
+</launch>

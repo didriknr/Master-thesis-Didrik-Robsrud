@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="pi" value="3.14159265359" />
+
+    <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
+
+    <node pkg="rviz" type="rviz" name="rviz_open" args="-d $(dirname)/rviz/rviz3.rviz"/>
+
+    <include file="$(dirname)/sublaunch/radar.launch">
+        <arg name="radar_ns"            value="radar0"/>
+        <arg name="command_port_number" value="0"/>
+        <arg name="data_port_number"    value="1"/>
+    </include>
+
+
+</launch>

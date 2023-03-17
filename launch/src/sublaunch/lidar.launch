@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="lidar_ns"            default="lidar"/>
+    <arg name="urdf"                default="false"/>
+    <arg name="cloud_name"          default="PointCloud"/>
+    <arg name="parent_link_name"    default="base"/>
+    <arg name="link_name"           value="os_lidar"/>
+    <arg name="device_name"         default="radar"/>
+    <arg name="pos"                 default="0 0 0 0 0 0"/>
+    <arg name="lidar_ip" default="169.254.171.185"/>
+
+    <arg name="min_height"          default="-1"/>
+    <arg name="max_height"          default="1"/>
+    <arg name="range_min"           default="0.8"/>
+    <arg name="range_max"           default="120"/>
+    <arg name="scan_time"           default="0.1"/>
+    <arg name="use_inf"             default="true"/>
+    <arg name="transform_tolerance" default="0.001"/>
+
+    <group ns="$(arg lidar_ns)">
+        <include file="$(find ouster_ros)/launch/sensor.launch">
+            <arg name="lidar_mode" value="512x10"/>
+            <arg name="sensor_hostname" value="$(arg lidar_ip)"/>
+            <arg name="ouster_ns" value="$(arg lidar_ns)"/>
+            <arg name="viz" value="false"/>
+            <arg name="tf_prefix" value=""/>       
+        </include>
+
+        <include file="$(dirname)/flatten.launch">         
+            <arg name="input_PointCloud"    value="/$(arg lidar_ns)/$(arg cloud_name)"/>
+            <arg name="device_frame"        value="$(arg link_name)"/>
+            <arg name="min_height"          value="$(arg min_height)"/>
+            <arg name="max_height"          value="$(arg max_height)"/>
+            <arg name="range_min"           value="$(arg range_min)"/>
+            <arg name="range_max"           value="(arg range_max)"/>
+            <arg name="scan_time"           value="(arg scan_time)"/>
+            <arg name="use_inf"             value="(arg use_inf)"/>
+            <arg name="transform_tolerance" value="(arg transform_tolerance)"/>
+        </include>
+        
+        <node pkg="tf" type="static_transform_publisher" name="link"
+            args="$(arg pos) $(arg parent_link_name) $(arg link_name) 30"/>  
+    </group>
+</launch>
