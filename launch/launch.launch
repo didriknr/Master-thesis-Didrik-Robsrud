@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <launch>
+    <arg name="pi" value="3.14159265359" />
+    <arg name="pi/2" value="1.57079632679" />
     <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
 
     <node pkg="rviz" type="rviz" name="rviz_open" args="-d $(dirname)/src/rviz/rviz3.rviz"/>
@@ -7,7 +9,9 @@
         <include file="$(find launch)/src/sublaunch/mount.launch">
         <arg name="radar_pos0"          value="radar_pos0"/>
         <arg name="radar_pos1"          value="radar_pos1"/>    
-        <arg name="radar_pos2"          value="radar_pos2"/>    
+        <arg name="radar_pos2"          value="radar_pos2"/>
+        <arg name="pos"                 value="0 0 0 $(arg pi/2) 0 0"/>
+            
     </include>
 
     <include file="$(find launch)/src/sublaunch/radar.launch">
@@ -24,7 +28,14 @@
         <arg name="data_port_number"    value="3"/>
     </include>
 
+    <include file="$(find launch)/src/sublaunch/lidar.launch">
+        <arg name="pos" value="0.0735 0 0.620 $(arg pi) 0 0"/>
+        
+    </include>
 
+    <include file="$(find launch)/src/sublaunch/merge.launch">
+        
+    </include>
 
 
 </launch>

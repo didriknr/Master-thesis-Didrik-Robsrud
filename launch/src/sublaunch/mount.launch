@@ -26,7 +26,7 @@
             args="0 0 0 0 0 0 $(arg mount_ns)/radar_pos2 $(arg radar_pos2)"/>
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg parent_link_name)_base_link"
-            args="0 0 0 0 0 0 $(arg parent_link_name) $(arg mount_ns)/base"/>
+            args="$(arg pos) $(arg parent_link_name) $(arg mount_ns)/base"/>
         <remap from="robot_description" to="$(arg mount_ns)_description"/>
         <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
             <param name="tf_prefix" value="$(arg mount_ns)"/>
