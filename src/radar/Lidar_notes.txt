@@ -40,7 +40,7 @@ ros2 run ros1_bridge dynamic_bridge
 
 http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/LaserScan.html
 
-
+alias tf2='cd /var/tmp && rosrun tf2_tools view_frames.py && evince frames.pdf &'
 
 apologies for the late reply. Simply open the CMakeLists.txt at /catkin_ws/src/ti_mmwave_rospkg
 change the line add_definitions(-std=c++11) to add_definitions(-std=c++14)
