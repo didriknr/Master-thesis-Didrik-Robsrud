@@ -98,7 +98,7 @@ def generate_launch_description():
     # Launch pointcloud to laserscan, imu and lidar
     ld.add_action(node_pointcloud_to_laserscan)
     ld.add_action(node_um7_imu)
-    ld.add_action(launch_ouster_lidar)
+    #ld.add_action(launch_ouster_lidar)
 
     # Launch Husky UGV
     ld.add_action(launch_husky_base)
