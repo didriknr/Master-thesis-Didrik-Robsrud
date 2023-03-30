@@ -45,10 +45,10 @@
             <param name="frame_id"      value="$(arg radar_ns)/atenna_center"/>
         </node>
 
-        <!-- mmWaveQuickConfig node (terminates after configuring mmWave sensor) -->
+        <!-- mmWaveQuickConfig node (terminates after configuring mmWave sensor) 
         <node pkg="ti_mmwave_rospkg" type="mmWaveQuickConfig" name="mmWaveQuickConfig"
                 args="$(find ti_mmwave_rospkg)/cfg/2d/best_range_reso.cfg" />
-
+-->
         <node pkg="tf" type="static_transform_publisher" name="link"
                 args="$(arg pos) $(arg parent_link_name) $(arg link_name) 30"/> 
 
