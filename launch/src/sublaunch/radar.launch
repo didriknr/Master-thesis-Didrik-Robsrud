@@ -12,7 +12,7 @@
 
     <arg name="min_height"          default="-1"/>
     <arg name="max_height"          default="1"/>
-    <arg name="range_min"           default="0.05"/>
+    <arg name="range_min"           default="0.1"/>
     <arg name="range_max"           default="10"/>
     <arg name="scan_time"           default="0.1"/>
     <arg name="use_inf"             default="true"/>
