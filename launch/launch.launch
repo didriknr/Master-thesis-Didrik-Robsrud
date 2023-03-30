@@ -3,12 +3,14 @@
     <arg name="pi" value="3.14159265359" />
     <arg name="pi/2" value="1.57079632679" />
     <arg name="base_link_name" default="base_link"/>
-    
-    <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
+    <arg name="viz" default="false"/>
 
-    <node pkg="rviz" type="rviz" name="rviz_open" args="-d $(dirname)/src/rviz/rviz3.rviz"/>
-    
-        <include file="$(find launch)/src/sublaunch/mount.launch">
+    <group if="$(arg viz)">
+        <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
+        <node pkg="rviz" type="rviz" name="rviz_open" args="-d $(dirname)/src/rviz/rviz3.rviz"/>
+    </group>
+
+    <include file="$(find launch)/src/sublaunch/mount.launch">
         <arg name="radar_pos0"          value="radar_pos0"/>
         <arg name="radar_pos1"          value="radar_pos1"/>    
         <arg name="radar_pos2"          value="radar_pos2"/>
