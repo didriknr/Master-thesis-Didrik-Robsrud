@@ -58,7 +58,7 @@ def generate_launch_description():
         executable="um7_node",
         output="screen",
     )
-    
+
     #Launch the LIDAR
     launch_ouster_lidar = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution(
@@ -97,7 +97,6 @@ def generate_launch_description():
     # Launch pointcloud to laserscan, imu and lidar
     #ld.add_action(node_pointcloud_to_laserscan)
     ld.add_action(node_um7_imu)
-    ld.add_action(ros1_bridge)
     #ld.add_action(launch_ouster_lidar)
 
     # Launch Husky UGV
