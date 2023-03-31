@@ -3,7 +3,7 @@
     <arg name="radar_ns"            default="radar"/>   <!--Unused-->
     <arg name="urdf"                default="false"/>
     <arg name="cloud_name"          default="PointCloud"/>
-    <arg name="parent_link_name"    default="base_link"/>
+    <arg name="parent_link_name"    default="base"/>
     <arg name="link_name"           default="$(arg radar_ns)_link"/>
     <arg name="command_port_number" default="0"/>
     <arg name="data_port_number"    default="1"/>
