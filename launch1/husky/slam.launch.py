@@ -58,7 +58,15 @@ def generate_launch_description():
         executable="um7_node",
         output="screen",
     )
-    
+
+    #Launch the ros1 bridge
+    ros1_bridge = Node(
+        package="ros1_bridge",
+        executable="dynamic_bridge",
+        name="bridge",
+    )
+
+
     #Launch the LIDAR
     launch_ouster_lidar = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution(
