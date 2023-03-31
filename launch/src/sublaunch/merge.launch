@@ -3,7 +3,7 @@
 
     <arg name="merge_ns"            default="merge"                                 />
     <arg name="parent_link_name"    default="base"                                  />
-    <arg name="scan_topics"         default="/radar0/scan /radar1/scan /lidar/scan" />
+    <arg name="scan_topics"         default="/radar0/flatten/scan /radar1/flatten/scan /lidar/flatten/scan" />
     <arg name="cloud_name"          default="PointCloud"                            />    
     <arg name="scan_time"           default="0.05"                                  />
     <arg name="range_min"           default="0.05"                                  />

@@ -6,8 +6,8 @@
     <arg name="viz" default="false"/>
 
     <group if="$(arg viz)">
-        <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
-        <node pkg="rviz" type="rviz" name="rviz_open" args="-d $(dirname)/src/rviz/rviz3.rviz"/>
+        <include file="$(find launch)/src/sublaunch/viz.launch">
+        </include>
     </group>
 
     <include file="$(find launch)/src/sublaunch/mount.launch">
