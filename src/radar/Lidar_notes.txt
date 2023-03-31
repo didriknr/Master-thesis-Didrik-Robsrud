@@ -38,6 +38,8 @@ source /opt/ros/noetic/setup.bash
 source /opt/ros/galactic/setup.bash 
 ros2 run ros1_bridge dynamic_bridge
 
+export ROS_MASTER_URI=http://192.168.0.169:11311
+
 http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/LaserScan.html
 
 alias tf2='cd /var/tmp && rosrun tf2_tools view_frames.py && evince frames.pdf &'
