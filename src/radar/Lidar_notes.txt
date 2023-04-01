@@ -32,6 +32,8 @@ rosdep update
 sudo rosdep init
 rosdep install --from-paths src -y --ignore-src
 
+ros2 launch didrik_ws/src/Master-thesis-Didrik-Robsrud/launch1/husky/husky.launch.py 
+
 sudo apt install ros-foxy-ros1-bridge
 
 source /opt/ros/noetic/setup.bash
