@@ -26,7 +26,7 @@
             <arg name="ouster_ns"       value="$(arg lidar_ns)"/>
             <arg name="viz"             value="false"/>
             <arg name="tf_prefix"       value=""/>  
-            <arg name="timestamp_mode" value="TIME_FROM_ROS_RECEPTION"/>
+            <arg name="timestamp_mode" value="TIME_FROM_ROS_TIME"/>
                  
         </include>
 
