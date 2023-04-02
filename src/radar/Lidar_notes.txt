@@ -46,6 +46,9 @@ export ROS_MASTER_URI=http://192.168.0.169:11311
 
 ros2 launch slam_toolbox lifelong_launch.py use_sim_time:=false params_file:=/home/husky/didrik_ws/src/Master-thesis-Didrik-Robsrud/launch1/husky/params/mapper_params_lifelong.yaml 
 
+ros2 launch nav2_bringup navigation_launch.py params_file:=/home/husky/didrik_ws/src/Master-thesis-Didrik-Robsrud/launch1/husky/params/nav2_params.yaml
+
+
 http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/LaserScan.html
 
 alias tf2='cd /var/tmp && rosrun tf2_tools view_frames.py && evince frames.pdf &'
