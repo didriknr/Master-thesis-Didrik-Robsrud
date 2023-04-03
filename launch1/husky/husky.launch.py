@@ -60,12 +60,12 @@ def generate_launch_description():
     )
 
     #Launch the joy stick
-    node_teleop_twist_joy = Node(
-        package="teleop_twist_joy",
-        executable="teleop-launch.py",
-        parameters=[{
-        'joy_config':'xbox'
-        }]
+    node_teleop_twist_joy = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(PathJoinSubstitution(
+        [FindPackageShare("teleop_twist_joy"), 'launch', 'teleop-launch.py'])),
+        launch_arguments ={
+            'joy_config':'xbox'
+        }.items()
     )
 
     #Launch the LIDAR
@@ -107,7 +107,7 @@ def generate_launch_description():
     #ld.add_action(node_pointcloud_to_laserscan)
     ld.add_action(node_um7_imu)
     #ld.add_action(launch_ouster_lidar)
-
+    ld.add_action(node_teleop_twist_joy)
     # Launch Husky UGV
     ld.add_action(launch_husky_base)
 
