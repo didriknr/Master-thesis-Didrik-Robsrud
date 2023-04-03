@@ -48,6 +48,7 @@ ros2 launch slam_toolbox lifelong_launch.py use_sim_time:=false params_file:=/ho
 
 ros2 launch nav2_bringup navigation_launch.py params_file:=/home/husky/didrik_ws/src/Master-thesis-Didrik-Robsrud/launch1/husky/params/nav2_params.yaml
 
+ros2 launch teleop_twist_joy teleop-launch.py joy_config:='xbox'
 
 http://docs.ros.org/en/melodic/api/sensor_msgs/html/msg/LaserScan.html
 
