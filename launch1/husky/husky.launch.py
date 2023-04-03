@@ -107,7 +107,7 @@ def generate_launch_description():
     #ld.add_action(node_pointcloud_to_laserscan)
     ld.add_action(node_um7_imu)
     #ld.add_action(launch_ouster_lidar)
-    ld.add_action(node_teleop_twist_joy)
+    #ld.add_action(node_teleop_twist_joy)
     # Launch Husky UGV
     ld.add_action(launch_husky_base)
 
