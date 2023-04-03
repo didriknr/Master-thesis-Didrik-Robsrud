@@ -59,6 +59,13 @@ def generate_launch_description():
         output="screen",
     )
 
+    #Launch the joy stick
+    node_teleop_twist_joy = Node(
+        package="teleop_twist_joy",
+        executable="teleop-launch.py",
+        joy_config="xbox",
+    )
+
     #Launch the LIDAR
     launch_ouster_lidar = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PathJoinSubstitution(
