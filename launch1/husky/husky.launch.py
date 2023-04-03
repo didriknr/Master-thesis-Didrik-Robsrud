@@ -63,7 +63,9 @@ def generate_launch_description():
     node_teleop_twist_joy = Node(
         package="teleop_twist_joy",
         executable="teleop-launch.py",
-        joy_config="xbox",
+        parameters=[{
+        'joy_config':'xbox'
+        }]
     )
 
     #Launch the LIDAR
