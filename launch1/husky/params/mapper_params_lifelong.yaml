@@ -15,9 +15,7 @@ slam_toolbox:
     map_frame: map
     base_frame: base_footprint
     scan_topic: /scan
-    mode: mapping
-    publish_pose: true
-    pose_topic: "/slam_pose"
+    mode: mapping localization
 
     # lifelong params
     lifelong_search_use_tree: false
