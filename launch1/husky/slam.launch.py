@@ -66,6 +66,20 @@ def generate_launch_description():
         name="bridge",
     )
 
+    #Launch slam
+    slam = Node(
+        package="slam_toolbox",
+        executable="online_async_launch.py",
+        name="slam",
+    )
+
+    #Launch the ros1 bridge
+    ros1_bridge = Node(
+        package="ros1_bridge",
+        executable="dynamic_bridge",
+        name="bridge",
+    )
+
 
     #Launch the LIDAR
     launch_ouster_lidar = IncludeLaunchDescription(
@@ -104,7 +118,7 @@ def generate_launch_description():
 
     # Launch pointcloud to laserscan, imu and lidar
     #ld.add_action(node_pointcloud_to_laserscan)
-    ld.add_action(node_um7_imu)
+    #ld.add_action(node_um7_imu)
     ld.add_action(ros1_bridge)
     #ld.add_action(launch_ouster_lidar)
 
