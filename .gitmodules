@@ -1,25 +1,25 @@
 [submodule "ouster-ros"]
-	path = /ros1/src/ouster-ros
+	path = ./ros1/src/ouster-ros
 	url = https://github.com/ouster-lidar/ouster-ros.git
 
 [submodule "ouster-sdk"]
-	path = /ros1/src/ouster-ros/ouster-sdk
+	path = ./ros1/src/ouster-ros/ouster-sdk
 	url = https://github.com/ouster-lidar/ouster_example.git
 
 [submodule "ti_mmwave_rospkg"]
-	path = /ros1/src/ti_mmwave_rospkg
+	path = ./ros1/src/ti_mmwave_rospkg
 	url = https://github.com/didriknr/ti_mmwave_rospkg
 	branch = master
 
 [submodule "serial"]
-	path = /ros1/src/serial
+	path = ./ros1/src/serial
 	url = https://github.com/wjwwood/serial.git
 
 [submodule "pointcloud_to_laserscan"]
-	path = /ros1/src/pointcloud_to_laserscan
+	path = ./ros1/src/pointcloud_to_laserscan
 	url = https://github.com/ros-perception/pointcloud_to_laserscan.git
 	branch = lunar-devel
 
 [submodule "ira_laser_tools"]
-	path = /ros1/src/ira_laser_tools
+	path = ./ros1/src/ira_laser_tools
 	url = https://github.com/iralabdisco/ira_laser_tools.git
