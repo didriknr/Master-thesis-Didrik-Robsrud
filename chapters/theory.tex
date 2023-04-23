@@ -1,2 +1,20 @@
-\chapter{Theory on ...}
+\chapter{Theory}
+\section{Ranging sensors}
+both lidar and radar are used in this project, 
+\subsection{Time of flight}
+The wave propagation speed for a wave is used in Time of flight sensors (TOF). Typical use case are electromagnetic - or acoustic waves. Equation \ref{eq:TOF1} is used to calculate the distance $d$ traversed by a wave.   
+\begin{equation} \label{eq:TOF1}
+    d = c \cdot T
+\end{equation}
+where 
+\begin{align*} 
+d   & - distance \hspace{2mm} (usually \hspace{2mm} round-trip).\\
+c   & - Propagation \hspace{2mm} speed \hspace{2mm} of \hspace{2mm} wave. \\
+T   & - Time \hspace{2mm} of \hspace{2mm} fligth. \\
+\end{align*}  
+Time of flight sensors are often used to calculate the distance to a object by emitting a wave that are to be reflected of an object, back to the senor. Applying equation \ref{eq:TOF1} to the just described system would render double the distance to the object, because the wave will spend time traveling to the object and then back again. The distance are therefore calculated with equation \ref{eq:TOF2} 
+\begin{equation} \label{eq:TOF2}
+    d = \frac{1}{2}c \cdot T
+\end{equation}
+This method of ranging is suitable for acoustic waves as they travel relatively slowly, compared with electromagnetic waves which travel about a million times faster. The electronics required for electromagnetic TOF-sensors are more expensive than the electronics required for acoustic TOF-sensors. Other ranging methods are therefore usualy used intead of TOF when it comes to electromagnetic waves \cite{introductionToMobileRobots}.
 
