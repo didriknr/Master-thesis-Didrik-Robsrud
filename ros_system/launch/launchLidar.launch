@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="pi" value="3.14159265359" />
+    <arg name="pi/2" value="1.57079632679" />
+    <arg name="base_link_name" default="base_link"/>
+    <arg name="viz" default="false"/>
+    <remap from="/lidar/flatten/scan" to="/scan"/>
+   
+    <include file="$(find launch)/src/sublaunch/lidar.launch">
+        <arg name="pos" value="0.0735 0 0.620 $(arg pi) 0 0"/>
+        <arg name="parent_link_name"    value="$(arg base_link_name)"/>  
+        
+    </include>
+
+</launch>
