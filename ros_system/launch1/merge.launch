@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <remap from="/cloud_in" to="/radar0_scan_pcl"/>
+    
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan_node">
+
+    </node>
+
+</launch>
