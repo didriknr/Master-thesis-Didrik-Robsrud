@@ -2,7 +2,7 @@
 \section{Ranging sensors}
 both lidar and radar are used in this project, 
 \subsection{Time of flight}
-The wave propagation speed for a wave is used in Time of flight sensors (TOF). Typical use case are electromagnetic - or acoustic waves. Equation \ref{eq:TOF1} is used to calculate the distance $d$ traversed by a wave.   
+The wave propagation speed for a wave is used in Time of flight sensors (TOF). Typical use case are electromagnetic - or acoustic waves. Equation \ref{eq:TOF1} is used to calculate the distance $d$ traversed by a wave \cite{introductionToMobileRobots}.   
 \begin{equation} \label{eq:TOF1}
     d = c \cdot T
 \end{equation}
@@ -12,9 +12,65 @@ d   & - distance \hspace{2mm} (usually \hspace{2mm} round-trip).\\
 c   & - Propagation \hspace{2mm} speed \hspace{2mm} of \hspace{2mm} wave. \\
 T   & - Time \hspace{2mm} of \hspace{2mm} fligth. \\
 \end{align*}  
-Time of flight sensors are often used to calculate the distance to a object by emitting a wave that are to be reflected of an object, back to the senor. Applying equation \ref{eq:TOF1} to the just described system would render double the distance to the object, because the wave will spend time traveling to the object and then back again. The distance are therefore calculated with equation \ref{eq:TOF2} 
+Time of flight sensors are often used to calculate the distance to a object by emitting a wave that are to be reflected of an object, back to the senor. Applying equation \ref{eq:TOF1} to the just described system would render double the distance to the object, because the wave will spend time travelling to the object and then back again. The distance are therefore calculated with equation \ref{eq:TOF2} \cite{introductionToMobileRobots}.
 \begin{equation} \label{eq:TOF2}
     d = \frac{1}{2}c \cdot T
 \end{equation}
-This method of ranging is suitable for acoustic waves as they travel relatively slowly, compared with electromagnetic waves which travel about a million times faster. The electronics required for electromagnetic TOF-sensors are more expensive than the electronics required for acoustic TOF-sensors. Other ranging methods are therefore usualy used intead of TOF when it comes to electromagnetic waves \cite{introductionToMobileRobots}.
+This method of ranging is suitable for acoustic waves as they travel relatively slowly, compared with electromagnetic waves which travel about a million times faster. The electronics required for electromagnetic TOF-sensors are more expensive than the electronics required for acoustic TOF-sensors. Other ranging methods are therefore usually used instead of TOF when it comes to electromagnetic waves \cite{introductionToMobileRobots}.
 
+\subsection{Continuous Wave}
+A continuous wave can be emitted instead of burst of waves. The wave could be a simple sinusoidal wave that are emitted continuously. The received signal are mixed together with the emitted signal. Mixing of signals is done by multiplying them. Equation \ref{eq:x1x2} shows properties of a sent signal $x_1(t)$ and received signal $x_2(2)$.
+\begin{equation} \label{eq:x1x2}
+    x_1(t) = \sin(\omega_{1}(t + \phi_{1})), \hspace{1mm} x_2(t) = \sin(\omega_{2}(t + \phi_{2}))
+\end{equation}
+Then the following property is used:
+\begin{equation} \label{eq:sin*sin}
+    \sin(a) \cdot \sin(b) = \frac{1}{2}[\cos(a - b) - \cos(a + b)]
+\end{equation}
+Then $a$ is substituted with $\omega_{1}(t + \phi_{1})$, and $b$ with $\omega_{2}(t + \phi_{2})$:
+\begin{equation} \label{eq:sin*sin}
+    \frac{1}{2}[\cos(a - b) - \cos(a + b)] = \frac{1}{2}[\cos(\omega_{1}(t + \phi_{1}) - \omega_{2}(t + \phi_{2})) - \cos(\omega_{1}(t + \phi_{1}) + \omega_{2}(t + \phi_{2}))]
+\end{equation}
+The following expression described the mixed signal of $x_1$ and $x_2$:
+\begin{equation} \label{eq:mix}
+    x_1(t) \cdot x_2(t) = \frac{1}{2}[\cos((\omega_{1} - \omega_{2})(t + \phi_{1}-\phi_{2})) - \cos((\omega_{1} + \omega_{2})(t + \phi_{1} + \phi_{2}))]
+\end{equation}
+
+Figure \ref{fig:mix} illustrates how $x_1(t)$ and $x_2(t)$ might look like, and how their mixed signal looks like. The plot together with equation \ref{eq:mix} makes it obvious that the mixed signal consists of two frequency components, one greater than the other. The difference between the frequency components is usually much greater than that what is illustrated in figure \ref{fig:mix}, to a degree where they are easily separated by a low-pass filter. The third plot in figure \ref{fig:mix} displays both the mixed signal and the low-pass filtered mixed signal $LP(x_1(t) \cdot x_2(t))$. The low-pass filtered signal are described in equation \ref{eq:LP(mix)}.   
+
+\begin{figure}[H]
+\centering
+\includesvg[scale=0.8]{Figures/matlab/mix.svg}
+  \caption{Example of mixing of two signals}
+  \label{fig:mix}
+\end{figure}
+\begin{equation} \label{eq:LP(mix)}
+    LP(x_1(t) \cdot x_2(t)) = \frac{1}{2} 
+ \cos((\omega_{1} - \omega_{2})(t + \phi_{1}-\phi_{2}))
+\end{equation}
+
+The frequency of the low-pass filtered signal is called the beat frequency, and it represents the Doppler shift \cite{douglas2022fmcw}. Doppler shift is produced when there is relative motion between sender/receiver and the detected object. However, only the motion along a axis that passes trough both sender/receiver and the detected object are measured \cite{cwradar}. This means that, in short, that Doppler shift is best detected when (for example) the detected object is either moving directly towards or away from the sender/receiver. Equation \ref{eq:nasa} describes how the Doppler shifted frequency relates to the relative velocity \cite{doppler_effect_nasa}.
+
+\begin{equation} \label{eq:nasa}
+    \omega_d = \omega_0 \frac{c}{c - v} 
+\end{equation}
+where 
+\begin{align*} 
+\omega_d   & - frequency \hspace{2mm} of \hspace{2mm} Doppler-shifted \hspace{2mm} signal.\\
+\omega_0   & - frequency \hspace{2mm} of \hspace{2mm} emitted \hspace{2mm} signal.\\
+c   & - Speed \hspace{2mm} of \hspace{2mm} wave \hspace{2mm} in \hspace{2mm} the \hspace{2mm} enviroment/medium.\\
+v   & - Relative \hspace{2mm} velocity \hspace{2mm} between \hspace{2mm} sender/revciver \hspace{2mm} and \hspace{2mm} detected \hspace{2mm} object.\\
+\end{align*}  
+Equation \ref{eq:nasa} is rewritten to produce equation \ref{eq:doppler}.
+\begin{equation} \label{eq:doppler}
+    v = \left( 1 - \frac{\omega_0}{\omega_d} \right) c
+\end{equation}
+
+The beat frequency is the difference between the emitted and revived frequency. However, The difference is found inside a cosine function, which is symmetric meaning it has the peppery described by equation \ref{eq:cos}.
+
+\begin{equation} \label{eq:doppler}
+    \cos(-x) = \cos(x)
+\end{equation}
+Thus the beat frequency will be the same for a object moving towards the sender/receiver as for object moving at the same velocity but away form the sender/receiver. Thus the system cannot tell whether the object is moving closer or further form the sender/receiver, relative to the sender/receiver. The issue with not being able to determine direction can be solved by adding a signal orthogonal to the original signal emitted signal. The new part of the emitted signal is $90 \deg$ out of phase compared with the original signal. The new, out of phase and orthogonal, signal is the imaginary part of the now complex emitted signal. The relative direction of movement of the object can now be determined by observing whether the real part or the imaginary part of the now complex beat frequency is leading \cite{douglas2022fmcw}.
+
+Distance between the sender/receiver and the object is found by considering the time shift between the emitted and revived signal. This system is only suitable for resolving distances shorter or equal one wavelength, due to the periodic nature of the emitted wave \cite{douglas2022fmcw}. This renders the system useless for measuring any significant distances, especially when using millimetre waves.   
