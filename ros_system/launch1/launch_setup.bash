@@ -1,1 +1,0 @@
-roslaunch didrik_ws2/src/Master-thesis-Didrik-Robsrud/launch/arnold.launch
