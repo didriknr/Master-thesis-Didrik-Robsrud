@@ -13,7 +13,8 @@
     <group ns="flatten">
         <remap from="cloud_in" to="/$(arg input_PointCloud)"/>
 
-        <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="PointClound_to_scan">
+        <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" 
+              name="PointClound_to_scan">
             <param name="min_height"            value="$(arg min_height)"/>
             <param name="max_height"            value="$(arg max_height)"/>
             <param name="scan_time"             value="$(arg scan_time)"/>
