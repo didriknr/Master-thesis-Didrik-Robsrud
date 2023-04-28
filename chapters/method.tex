@@ -11,52 +11,42 @@
 
 
 \chapter{Software}
-\section{ROS}
-Robot Operating System (ROS) is a open-source collection of software that are used as a framework for robotics. ROS has been in development in over ten years and it is an important part of the field of robotics. ROS is used in research, teaching and industrial applications. ROS contains many pre-made packages that can make it simpler to achieve advanced advanced functionality, like autonomous navigation \cite{WhyROS}. 
-
-ROS is a software development kit (SDK) and not a operating system. ROS provides a standardised message-passing system that allows common hardware to be utilized by different software, like localisation algorithms. ROS comes equipped with tools to help with visualisation and launching software \cite{ROSEcosystem}. It is possible to configure autonomous robots with openly available software, without having to develop any complex algorithms.
-
-ROS can be deployed on macOS, Windows, RTOS (Real Time Operating Systems) and Linux \cite{WhyROS}. The development of ROS are ongoing, and different distributions of ROS are released to ensure that the development does not break applications \cite{REP2000}. New ROS distributions are typically realised every year at world turtle day, may 23. distros, short for distributions, with long-term support are only realesed every second year, one month after a LTS distro of Ubuntu are released. 
-
-\begin{figure}[H]
-\centering
-\includesvg[scale=1]{Figures/ros/ros-noetic-ninjemys.svg}
-  \caption{Poster for the latest ROS distribution Noetic Ninjemys \cite{ROSLogo}}
-  \label{fig:noeticLogo}
-\end{figure}
-
-The ROS distros seems to be somewhat similar and compatible, except for the ROS2 distros. ROS2 is a newer version of ROS with many improvements to its structure. ROS2 uses newer versions of C++ and Python, and differs in the tools utilized for creating and building packages \cite{ROSChanges}. ROS2 seems to be recommended over ROS (or ROS1) because it is newer. However, it also does not seem be as well tested as ROS1.
-
-There are several aspects to ROS communication, but the most important ones to understand in this project are nodes, messages and topics. A node is essentially a program that can interact with the ROS-network. Different nodes may preform different tasks, for example, one node might be responsible for interfacing with the wheel actuators of a robot, while another one could be responsible for planning a path for the robot to take. Messages are the data which is communicated between nodes. Messages often follow a standardised structure such that different hardware and software can work together more easily. There is a standardised message type for 2D-Lidars called Laserscan, this can be utilised by ranging sensors and SLAM-like algorithms.  Topics are essentially the "channels" on which messages are sent. Topics are differentiated with arbitrary names, however it is common practice to name a topic something describing or something similar to the name of its message type. Nodes that sends out messages are publishing to topics, nodes that reads messages are subscribing to a topic. 
-
-\subsection{Launch files}
-
-The simplest way to initialize a ROS-node is to first start the roscore, then run the "rosrun" command in the Ubuntu terminal. Running a ROS-node can look something like the following example.  
-\mint{css}{rosrun "package" "node-name" "argument-name":="value"}
-However, This method becomes cumbersome once there is a need for running several nodes, with their own arguments. Each node would require their own terminal window, in addition to the roscore. The solution to this issue is launch files. Launch files makes it possible 
-
-\subsection{Implementation}
+\section{ROS system}
 The work done in this project is a continuation and expansion of previous work \ref{Appdix:MAS513}. This previous work consisted of, among other things, configuring a Unmanned Ground Vehicle (UGV) along with sensors, in ROS2. There was therefore a desire to continue the work in this project in ROS2. The issue was that the pre-made package for the radar-modules was made for ROS1. The migration methods described on the official ROS2 documentation where attempted (described in \cite{ROSMigrationGuide}). Attempts where also made on using Amazon's tools for migrating ROS1 to ROS2 (described in \cite{ROSMigrationGuide}). Attempts on migrating the radar-package to ROS2 was ultimately abandoned. The perception system was implemented i ROS1, then the ROS1 bridge was utilized for communicating with the rest of the system which runs on ROS2.
 
 \subsubsection{ROS1 system}
 The ROS1 system is responsible for reading in data from a 3D-Lidar \ref and two radar-modules \ref, combining data and sending it on a format can be used for navigation purposes. The navigation system used in this project, and in \ref{Appdix:MAS513}, relays on the Laserscan message sent on the "/scan"-topic. The ROS1 system must provide the ROS2 system with the proper messages on the "/scan"-topic. Figure \ref{fig:rqt:ros1_noBridge} displays a rqt node-graph of the ROS1 system. The system is divided in to four main parts, which will be explained in the following parts.
 
+Figure 
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.65]{Figures/draw.io/sipleRqtRos1.drawio.pdf}
+  \caption{rqt node-graph of ROS1 system (see \ref{Appdix:rqtROS1NB} for a bigger figure)}
+  \label{fig:rqt:ros1_noBridge}
+\end{figure}
+\subsection{Launch files}
+
+The simplest way to initialise a ROS-node is to first start the roscore, then run the "rosrun" command in the Ubuntu terminal. Running a ROS-node can look something like the following example.  
+\mint{css}{rosrun "package" "node-name" "argument-name":="value"}
+However, This method becomes cumbersome once there is a need for running several nodes, with their own arguments. Each node would require their own terminal window, in addition to the roscore. The solution to this issue is launch files. Launch files makes it possible 
+
+\subsection{Implementation}
+
+
+
+
 \subsubsubsection{radar0 and radar1}
 
-\begin{figure}[H]
-\centering
-\includesvg[scale=0.4]{Figures/draw.io/sipleRqtRos1.drawio.svg}
-  \caption{rqt node-graph of ROS1 system (see \ref{Appdix:rqtROS1NB} for a bigger figure)}
-  \label{fig:rqt:ros1_noBridge}
-\end{figure}
 
 
-\begin{figure}[H]
-\centering
-\includesvg[scale=0.14]{Figures/ros/ros1graph_noBridge.svg}
-  \caption{rqt node-graph of ROS1 system (see \ref{Appdix:rqtROS1NB} for a bigger figure)}
-  \label{fig:rqt:ros1_noBridge}
-\end{figure}
+
+%\begin{figure}[H]
+%\centering
+%\includesvg[scale=0.14]{Figures/ros/ros1graph_noBridge.svg}
+%  \caption{rqt node-graph of ROS1 system (see %\ref{Appdix:rqtROS1NB} for a bigger figure)}
+%  \label{fig:rqt:ros1_noBridge}
+%\end{figure}
 
 
 \begin{table}[h!]

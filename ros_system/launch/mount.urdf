@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="mount">
+  <link name="base">
+    <inertial>
+      <origin
+        xyz="-3.0316E-05 -0.44554 0.099342"
+        rpy="0 0 0" />
+      <mass value="0.13753" />
+      <inertia
+        ixx="6.8676E-05"
+        ixy="3.5231E-09"
+        ixz="7.5078E-09"
+        iyy="0.00072235"
+        iyz="3.2215E-06"
+        izz="0.00078376" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://launch/src/sublaunch/description/meshes/mount.stl" />
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.25098 0.25098 0.25098 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://launch/src/sublaunch/description/meshes/mount.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link name="radar_pos1">
+    <inertial>
+      <origin
+        xyz="-1.1102E-16 0 1.3878E-17"
+        rpy="0 0 0" />
+      <mass
+        value="1.9458E-05" />
+      <inertia
+        ixx="4.017E-11"
+        ixy="-2.068E-26"
+        ixz="6.4623E-28"
+        iyy="2.3733E-11"
+        iyz="-1.7652E-42"
+        izz="2.3733E-11" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://launch/src/sublaunch/description/meshes/radar_pos1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 0" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://launch/src/sublaunch/description/meshes/radar_pos1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="radar_pos1_joint"
+    type="fixed">
+    <origin
+      xyz="-0.079903 -0.43494 0.11628"
+      rpy="0 0 -1.5708" />
+    <parent link="base" />
+    <child
+      link="radar_pos1" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="radar_pos0">
+    <inertial>
+      <origin
+        xyz="-5.5511E-17 -4.1633E-17 -3.4694E-18"
+        rpy="0 0 0" />
+      <mass
+        value="1.9458E-05" />
+      <inertia
+        ixx="4.017E-11"
+        ixy="-2.068E-26"
+        ixz="6.4623E-28"
+        iyy="2.3733E-11"
+        iyz="-1.7652E-42"
+        izz="2.3733E-11" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://launch/src/sublaunch/description/meshes/radar_pos0.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 0" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://launch/src/sublaunch/description/meshes/radar_pos0.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="radar_pos0_joint"
+    type="fixed">
+    <origin
+      xyz="-0.001 -0.43494 0.10651"
+      rpy="1.5708 0 -1.5708" />
+    <parent
+      link="base" />
+    <child
+      link="radar_pos0" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="radar_pos2">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://launch/src/sublaunch/description/meshes/radar_pos2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 0" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://launch/src/sublaunch/description/meshes/radar_pos2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="radar_pos2_joint"
+    type="fixed">
+    <origin
+      xyz="0.079902749875 -0.434940310662667 0.116283693634092"
+      rpy="0 0 -1.5707963267949" />
+    <parent
+      link="base" />
+    <child
+      link="radar_pos2" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>
