@@ -27,13 +27,12 @@ Figure \ref{fig:simpleRos1Rqt} simplified presentation of the visualisation syst
 \end{figure}
 %\subsection{Launch files}
 
-The system is brought up with the help of launch files. One launch file (two in practice) is used to launch the entire, except the ROS1 bridge. The master launch file(s) are responsible for calling upon other "sublaunch" files. The sublaunch file system allows similar functionality to be re-used, similarly to how functions might be used in c or Python. All of the groups depicted in figure \ref{fig:simpleRos1Rqt} has a sublaunch file associated with it. The next parts will be use to explain the sublaunch files used by the main launch file(s). 
+The system is brought up with the help of launch files. One launch file (two in practice) is used to launch the entire, except the ROS1 bridge. The master launch file(s) are responsible for calling upon other "sublaunch" files. The sublaunch file system allows similar functionality to be re-used, similarly to how functions might be used in c or Python. All of the groups depicted in figure \ref{fig:simpleRos1Rqt} has a sublaunch file associated with it. 
+
+The sublaunch files takes in arguments, which can be passed over to the elements being launched. The arguments can be passed to the sublaunch file when it is called, but there are default settings that are applied for the arguments not specified when the launch file is ran. The arguments are passed down either to the nodes or the launch files that are called upon. Some of the arguments are used so that one launch file can called by different launch files without them intefearing with eachother, by for example changing the prefex on nodes and 
 
 \subsubsection{}
 
-The simplest way to initialise a ROS-node is to first start the roscore, then run the "rosrun" command in the Ubuntu terminal. Running a ROS-node can look something like the following example.  
-\mint{css}{rosrun "package" "node-name" "argument-name":="value"}
-However, This method becomes cumbersome once there is a need for running several nodes, with their own arguments. Each node would require their own terminal window, in addition to the roscore. The solution to this issue is launch files. Launch files makes it possible 
 
 \subsection{Implementation}
 
