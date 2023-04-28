@@ -1,0 +1,11 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"lidar_link" [label="lidar_link"];
+"ti_link" [label="ti_link"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "lidar_joint" [label="xyz: 0.175 0 0.505 \nrpy: 0 -0 3.14"]
+"lidar_joint" -> "lidar_link"
+"base_link" -> "ti_joint" [label="xyz: 0.2 0 0.1 \nrpy: 0 -0 0"]
+"ti_joint" -> "ti_link"
+}
