@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="mount_ns"            default="mount"/> 
+    <arg name="urdf"                default="false"/>
+    <arg name="parent_link_name"    default="base"/>
+    <arg name="link_name"           default="$(arg mount_ns)_link"/>
+    <arg name="device_name"         default="mount"/>
+    <arg name="pos"                 default="0 0 0 0 0 0"/>
+    <arg name="radar_pos0"          default="radar_pos0"/>
+    <arg name="radar_pos1"          default="radar_pos1"/>    
+    <arg name="radar_pos2"          default="radar_pos2"/>    
+
+    <!---->
+    <arg name="urdf_file" default="$(dirname)/description/urdf/mount.urdf"  />
+    <param name="$(arg mount_ns)_description" textfile="$(arg urdf_file)"/>
+
+    <group ns="$(arg mount_ns)">
+
+        <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg radar_pos0)_base_link"
+            args="0 0 0 0 0 0 $(arg mount_ns)/radar_pos0 $(arg radar_pos0)"/>
+
+        <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg radar_pos1)_base_link"
+            args="0 0 0 0 0 0 $(arg mount_ns)/radar_pos1 $(arg radar_pos1)"/>
+
+        <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg radar_pos2)_base_link"
+            args="0 0 0 0 0 0 $(arg mount_ns)/radar_pos2 $(arg radar_pos2)"/>
+
+        <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg parent_link_name)_base_link"
+            args="$(arg pos) $(arg parent_link_name) $(arg mount_ns)/base"/>
+        <remap from="robot_description" to="$(arg mount_ns)_description"/>
+        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+            <param name="tf_prefix" value="$(arg mount_ns)"/>
+            <param name="robot_description" textfile="$(dirname)/description/urdf/mount.urdf"/>
+        </node>
+    </group>
+</launch>

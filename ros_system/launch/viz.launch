@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <group ns="viz">
+        <node name="rqt_gui" pkg="rqt_gui" type="rqt_gui"/>
+        <node pkg="rviz" type="rviz" name="rviz_open" args="-d $(find launch)/src/rviz/rviz3.rviz"/>
+    </group>
+</launch>
