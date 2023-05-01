@@ -26,17 +26,22 @@
 
 
     <group ns="$(arg radar_ns)">
-        <remap from="/ti_mmwave/radar_scan_pcl" to="/$(arg radar_ns)/$(arg cloud_name)"/>
+        <remap from="/ti_mmwave/radar_scan_pcl" 
+               to="/$(arg radar_ns)/$(arg cloud_name)"/>
 
-        <node pkg="tf2_ros" type="static_transform_publisher" name="base_$(arg radar_ns)_base_link"
+        <node pkg="tf2_ros" type="static_transform_publisher" 
+              name="base_$(arg radar_ns)_base_link"
             args="0 0 0 0 0 0 $(arg link_name) $(arg radar_ns)/radar_base"/>
         
             
         <!-- mmWave_Manager node -->
-        <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" name="$(arg device_name)">
-            <param name="command_port"  value="/dev/ttyACM$(arg command_port_number)"  />
+        <node pkg="ti_mmwave_rospkg" type="ti_mmwave_rospkg" 
+              name="$(arg device_name)">
+            <param name="command_port"  
+                   value="/dev/ttyACM$(arg command_port_number)"  />
             <param name="command_rate"  value="115200"   />
-            <param name="data_port"     value="/dev/ttyACM$(arg data_port_number)"  />
+            <param name="data_port"     
+                   value="/dev/ttyACM$(arg data_port_number)"  />
             <param name="data_rate"     value="921600"   />
             <param name="max_allowed_elevation_angle_deg"
                     value="$(arg max_allowed_elevation_angle_deg)"   />
@@ -46,14 +51,16 @@
         </node>
 
         <!-- mmWaveQuickConfig node (terminates after configuring mmWave sensor) -->
-        <node pkg="ti_mmwave_rospkg" type="mmWaveQuickConfig" name="mmWaveQuickConfig"
+        <node pkg="ti_mmwave_rospkg" type="mmWaveQuickConfig" 
+              name="mmWaveQuickConfig"
                 args="$(find ti_mmwave_rospkg)/cfg/2d/best_range_reso.cfg" />
 
         <node pkg="tf2_ros" type="static_transform_publisher" name="link"
                 args="$(arg pos) $(arg parent_link_name) $(arg link_name)"/> 
 
         <include file="$(dirname)/flatten.launch">         
-            <arg name="input_PointCloud"    value="/$(arg radar_ns)/$(arg cloud_name)"/>
+            <arg name="input_PointCloud"    
+                 value="/$(arg radar_ns)/$(arg cloud_name)"/>
             <arg name="device_frame"        value="$(arg radar_ns)/atenna_center"/>
             <arg name="min_height"          value="$(arg min_height)"/>
             <arg name="max_height"          value="$(arg max_height)"/>
@@ -66,9 +73,11 @@
         
         <!--<param name="robot_description" textfile="$(arg urdf_file)"/>-->
         <remap from="robot_description" to="$(arg radar_ns)_description"/>
-        <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+        <node pkg="robot_state_publisher" type="robot_state_publisher" 
+              name="robot_state_publisher">
             <param name="tf_prefix" value="$(arg radar_ns)"/>
-            <param name="robot_description" textfile="$(dirname)/description/urdf/radar.urdf"/>
+            <param name="robot_description" 
+                   textfile="$(dirname)/description/urdf/radar.urdf"/>
         </node>
     </group>
 </launch>
