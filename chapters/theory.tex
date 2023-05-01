@@ -89,10 +89,13 @@ ROS can be deployed on macOS, Windows, RTOS (Real Time Operating Systems) and Li
   \label{fig:noeticLogo}
 \end{figure}
 
-The ROS distros seems to be somewhat similar and compatible, except for the ROS2 distros. ROS2 is a newer version of ROS with many improvements to its structure. ROS2 uses newer versions of C++ and Python, and differs in the tools utilized for creating and building packages \cite{ROSChanges}. ROS2 seems to be recommended over ROS (or ROS1) because it is newer. However, it also does not seem be as well tested as ROS1.
+The ROS distros seems to be somewhat similar and compatible, except for the ROS2 distros. ROS2 is a newer version of ROS with many improvements to its structure. ROS2 uses newer versions of C++ and Python, and differs in the tools utilised for creating and building packages \cite{ROSChanges}. ROS2 seems to be recommended over ROS (or ROS1) because it is newer. However, it also does not seem be as well tested as ROS1.
 
 There are several aspects to ROS communication, but the most important ones to understand in this project are nodes, messages and topics. A node is essentially a program that can interact with the ROS-network. Different nodes may preform different tasks, for example, one node might be responsible for interfacing with the wheel actuators of a robot, while another one could be responsible for planning a path for the robot to take. Messages are the data which is communicated between nodes. Messages often follow a standardised structure such that different hardware and software can work together more easily. There is a standardised message type for 2D-Lidars called Laserscan, this can be utilised by ranging sensors and SLAM-like algorithms.  Topics are essentially the "channels" on which messages are sent. Topics are differentiated with arbitrary names, however it is common practice to name a topic something describing or something similar to the name of its message type. Nodes that sends out messages are publishing to topics, nodes that reads messages are subscribing to a topic. 
 
 The simplest way to initialise a ROS-node is to first start the roscore, then run the "rosrun" command in the Ubuntu terminal. Running a ROS-node can look something like the following example.  
 \mint{css}{rosrun "package" "node-name" "argument-name":="value"}
 However, This method becomes cumbersome once there is a need for running several nodes, with their own arguments. Each node would require their own terminal window, in addition to the roscore. The solution to this issue is launch files. Launch files makes it possible 
+
+\subsection{transforms tf2 or whatever}
+\subsection{some nodes used?}
