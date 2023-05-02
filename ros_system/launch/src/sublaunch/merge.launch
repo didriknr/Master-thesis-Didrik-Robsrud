@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <launch>
 
-    <arg name="merge_ns"            default="merge"                                 />
-    <arg name="parent_link_name"    default="base"                                  />
+    <arg name="merge_ns"            default="merge"/>
+    <arg name="parent_link_name"    default="base"/>
     <arg name="scan_topics"         
     default="/radar0/flatten/scan /radar1/flatten/scan /lidar/flatten/scan" />
-    <arg name="cloud_name"          default="PointCloud"                            />    
-    <arg name="scan_time"           default="0.05"                                  />
-    <arg name="range_min"           default="0.05"                                  />
-    <arg name="range_max"           default="120"                                   /> 
-    <arg name="min_height"          default="0"                                     />
-    <arg name="max_height"          default="2"                                     />   
-    <arg name="use_inf"             default="true"                                  />
-    <arg name="transform_tolerance" default="0.01"                                  />
+    <arg name="cloud_name"          default="PointCloud"/>    
+    <arg name="scan_time"           default="0.05"/>
+    <arg name="range_min"           default="0.05"/>
+    <arg name="range_max"           default="120"/> 
+    <arg name="min_height"          default="0"/>
+    <arg name="max_height"          default="2"/>   
+    <arg name="use_inf"             default="true"/>
+    <arg name="transform_tolerance" default="0.01"/>
 
     <group ns="$(arg merge_ns)">
         <node pkg="ira_laser_tools" type="laserscan_multi_merger" name="scan_merger">
