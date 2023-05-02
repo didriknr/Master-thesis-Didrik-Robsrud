@@ -15,8 +15,10 @@
     <arg name="transform_tolerance" default="0.01"/>
 
     <group ns="$(arg merge_ns)">
-        <node pkg="ira_laser_tools" type="laserscan_multi_merger" name="scan_merger">
-            <param name="destination_frame"         value="$(arg parent_link_name)"/>
+        <node pkg="ira_laser_tools" type="laserscan_multi_merger" 
+              name="scan_merger">
+            <param name="destination_frame"         
+                   value="$(arg parent_link_name)"/>
             <param name="laserscan_topics"          value="$(arg scan_topics)"/>
             <param name="scan_time"                 value="$(arg scan_time)"/>
             <param name="range_min"                 value="$(arg range_min)"/>
