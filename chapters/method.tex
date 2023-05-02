@@ -10,7 +10,7 @@
 \section{Computers}
 
 
-\chapter{Theory}
+\chapter{Method}
 \section{Tools}
 This section will explain the tools used in this project, like ROS, ubuntu, the lidar radars husky....
 \section{ROS system}
@@ -27,11 +27,16 @@ Figure \ref{fig:simpleRos1Rqt} simplified presentation of the visualisation syst
   \caption{Simplifyed node-graph of ROS1 system}
   \label{fig:simpleRos1Rqt}
 \end{figure}
-%\subsection{Launch files}
 
+
+
+\subsection{\textit{launch}}
 The system is brought up with the help of launch files. One launch file (two in practice) is used to launch the entire ROS1 system, except the ROS1 bridge. The master launch file(s) are responsible for calling upon other "sublaunch" files. The sublaunch file system allows similar functionality to be re-used, similarly to how functions might be used in c or Python. All of the groups depicted in figure \ref{fig:simpleRos1Rqt} has a sublaunch file associated with it. 
 
-The sublaunch files takes in arguments, which can be passed over to the elements being launched. The arguments can be passed to the sublaunch file when it is called, but there are default settings that are applied for the arguments not specified when the launch file is ran. The arguments are passed down either to the nodes or the launch files that are called upon. Some of the arguments are used so that one launch file can called by different launch files without them interfering with each other, by for example changing the prefix on nodes and topics, like mentioned above. The following sections will go over the different sublaunch files used by the main launch file(s)
+The sublaunch files takes in arguments, which can be passed over to the elements being launched. The arguments can be passed to the sublaunch file when it is called, but there are default settings that are applied for the arguments not specified when the launch file is ran. The arguments are passed down either to the nodes or the launch files that are called upon. Some of the arguments are used so that one launch file can called by different launch files without them interfering with each other, by for example changing the prefix on nodes and topics, like mentioned above. The following sections will go over the different launch files.
+
+\subsubsection{\textit{launchNoRadar1.launch}}\label{subsubsec:launchNoRadar1.launch}
+\textit{launchNoRadar1.launch} is one of two launch files that are launched "manually" and not trough a different launch file. These can be viewed as "main" launch files, as they call other launch files, and does not initialise any nodes directly. 
 
 \subsubsection{\textit{flatten.launch}}\label{subsubsec:flatten.launch}
 "\textit{flatten.launch}" is used to launch the \textit{pointcloud\_to\_laserscan\_node} 
@@ -42,21 +47,16 @@ node of the \textit{pointcloud\_to\_laserscan} package. The \textit{pointcloud\_
 
 A \textit{static\_transform\_publisher} node form the \textit{tf2\_ros} package is used to crate a "dummy"-frame on top of the frame for the Lidar provided by the Lidar-package. This done so that the name of the frame can be altered trough an argument, making it more generic. A second \textit{static\_transform\_publisher} node is used to relate the Lidars position to the rest of the system. The \textit{parent\_link\_name} argument is used to set the name of the parent link of the Lidar, so it can be associated with any frame. The \textit{pos} argument describes the transform between the Lidar's frame and the parent frame. See \ref{Appdix:lidar.launch} to see the code for the launch file.
 
-\subsubsection{\textit{radar.launch}}
+\subsubsection{\textit{radar.launch}}\label{subsubsec:radar.launch}
 \textit{radar.launch} has a somewhat similar structure to \textit{lidar.launch} \ref{subsubsec:lidar.launch}, but is used for launching the radars and not the Lidar. \textit{radar.launch} is a heavily modified version of the launch file intended for the radar-modules, included with the radar package (\textit{awr1843boost\_test.launch}). The original launch file did not allow certain arguments to be altered, thus it was necessary to create a new launch file, instead of calling the original. A group with a configurable NS is set for the nodes and topics, similar to the other launch files. A remapping of the standard point cloud topic name is done for similar reasons as in \textit{lidar.launch} \ref{subsubsec:lidar.launch}, but also to allow multiple radar modules to be launched. The \textit{ti\_mmwave\_rospkg} node of the \textit{ti\_mmwave\_rospkg} package is responsible for interfacing with the radar modules, by publishing their data as point clouds on the ROS network. The \textit{command\_port} - and the \textit{data\_port} argument has been altered to \textit{/dev/ttyACM\$(arg command\_port\_number)} and \textit{/dev/ttyACM\$(arg data\_port\_number)}, respectively. These arguments is used to inform the node about the file path of the communication link to the radar module, thus it is critical that these can be changed when more than one radar module is used. The file path arguments are set such that only a integer needs to be passed in to the launch file, the rest of the file path does not change (at least for the systems utilised in this project). The \textit{frame\_id} argument is used to set the name of the frame of which the centre of the radar sits. \textit{frame\_id} is set to be \textit{\$(arg radar\_ns)/atenna\_center}, which is a frame located approximately at the centre of the antenna patch of the radar URDF, which will be explained further below. The rest of the arguments are similar to those in the original launch file. 
 
-The \textit{mmWaveQuickConfig} node of the \textit{ti\_mmwave\_rospkg} package is used to provide the radar module with a configuration file. This seems to be a necessary step for the radar to start operating. Radar configuration files can be created with a web tool, but a pre-made configuration file is used, just as in the original launch file. Two \textit{static\_transform\_publisher} nodes are used for similar purposes as those used in \textit{lidar.launch} \ref{subsubsec:lidar.launch}. The points published by the \textit{ti\_mmwave\_rospkg} node are practically speaking two dimensional. However, the points are published at the \textit{sensor\_msgs/PointCloud2} message format. \textit{flatten.launch} \ref{subsubsec:flatten.launch} is used similarly as in \textit{lidar.launch} \ref{subsubsec:lidar.launch}. The \textit{robot\_state\_publisher} node of the \textit{robot\_state\_publisher} package is used make a description of the radar module avalible on the ros network. This description is defined in a URDF file. Some remapping are done to allow multiple descriptions to be initialised at the same time. The parameter \textit{tf\_prefix} is set to avoid name conflicts between the frames of different descriptions. See \ref{Appdix:radar.launch} to see the code for the launch file.
+The \textit{mmWaveQuickConfig} node of the \textit{ti\_mmwave\_rospkg} package is used to provide the radar module with a configuration file. This seems to be a necessary step for the radar to start operating. Radar configuration files can be created with a web tool, but a pre-made configuration file is used, just as in the original launch file. Two \textit{static\_transform\_publisher} nodes are used for similar purposes as those used in \textit{lidar.launch} \ref{subsubsec:lidar.launch}. The points published by the \textit{ti\_mmwave\_rospkg} node are practically speaking two dimensional. However, the points are published at the \textit{sensor\_msgs/PointCloud2} message format. \textit{flatten.launch} \ref{subsubsec:flatten.launch} is used similarly as in \textit{lidar.launch} \ref{subsubsec:lidar.launch}. The \textit{robot\_state\_publisher} node of the \textit{robot\_state\_publisher} package is used make a description of the radar module available on the ROS network. This description is defined in a URDF file. Some remapping are done to allow multiple descriptions to be initialised at the same time. The parameter \textit{tf\_prefix} is set to avoid name conflicts between the frames of different descriptions. See \ref{Appdix:radar.launch} to see the code for the launch file.
 
 \subsubsection{\textit{merge.launch}}\label{subsubsec:merge.launch}
 The \textit{merge.launch} launch file is used to launch the \textit{laserscan\_multi\_merger} node of the \textit{ira\_laser\_tools} package. This node subscribes to a list of \textit{sensor\_msgs/LaserScan} type topics provided by the \textit{laserscan\_topics} argument, and combines them. The node publishes a point cloud and a laser scan, but the laser scan provided by the node did not behave as expected. However, the point cloud seems to consist of data similar to the input messages, thus this was used. The merged point cloud gets passed in to \textit{flatten.launch} \ref{subsubsec:flatten.launch}, which produces the final, merged, scan message.
 
-\subsection{Implementation}
-
-
-
-
-\subsubsubsection{radar0 and radar1}
-
+\subsubsection{\textit{mount.launch}}\label{subsubsec:mount.launch}
+The \textit{mount.launch} launch file is used to make a description of the radar mount available on the ROS network, is a similar manner as in \textit{radar.launch} \ref{subsubsec:radar.launch}. The URDF-file of the mount produces three frames that represent locations where radar modules can be mounted. \textit{static\_transform\_publisher} nodes are used to place frames on top of the existing, where the names of the new frames can be set with arguments. A \textit{static\_transform\_publisher} node is used to create a transform between the base of the mount description and the rest of the system.
 
 
 
