@@ -10,6 +10,7 @@ This section will explain the tools used in this project, like ROS, ubuntu, the 
 \subsubsubsection{Mount}
 \subsubsection{IMU}
 \subsection{Husky A200}
+\subsection{Logitech F710}
 \subsubsection{Kinematics}
 \subsection{Computers}
 
@@ -66,11 +67,55 @@ The \textit{mount.launch} launch file is used to make a description of the radar
 \textit{launchRadar1.launch} and \textit{launchNoRadar1.launch} \ref{subsubsec:launchNoRadar1.launch} where originally part of the same launch file, but they where split up due to some technical issues. The process of launching the radars seem to consist of two steps, configuration and reading data. The issue seems to surround the configuration part. The behaviour of the configuration appears to be unpredictable, and it can take several launching attempts and restarts of the radar modules to successfully launch the radars. The radars have been launched by at a point, but is was a lot less reliable than the current solution. The Github pages associated with the \textit{ti\_mmwave\_rospkg} package seems to suggest that is difficult to launch several radars at the same time due to conflicts with the USB-communication. The second radar is launched by calling \textit{radar.launch} \ref{subsubsec:radar.launch}, but this time with different arguments. The \textit{radar\_ns} argument is set to \textit{radar1}, the \textit{radar.launch} - and the argument is set to \textit{2} and \textit{3}, respectively. The \textit{radar.launch}
 
 \subsection{ROS2 system}
-\subsubsection{\textit{ros1\_bridge}}
+The ROS2 system 
+
 \subsubsection{\textit{uia\_husky\_0776}}
+\textit{uia\_husky\_0776} is not a package, but a collection of packages that are used to operate the Husky. \textit{uia\_husky\_0776} exists as a Github repository and it is sheared between the three projects. This repository was created mostly by the Øvsthus-project, as this required (at some point) the Husky to be operated trough Galactic instead of Foxy, which was used in the base project. This repository is quite similar to, and based upon the repository used for the base project. 
+%\subsubsection{\textit{husky\_group}}
+The \textit{husky\_group} package that can be used to launch the Husky, both physically and in simulation, and several launch - and parameter files used in this project are modified version of launch - and parameter files from this package. The \textit{uia\_master\_husky} package is, in short, a modified version of Clearpath's ROS2 Galactic packages for the Huksy, where the modifications where made by Øvsthus. The \textit{um7} package is used to communicate with the IMU, and to make its data available on the ROS2 network. The \textit{serial} package is simply used by the \textit{um7} package for serial communication. The process of installing and running the contests of the \textit{uia\_husky\_0776} repository is explained quite well on its \href{https://github.com/orjano-max/uia_husky_0776}{Github page}.
+
+\subsubsection{\textit{ros1\_bridge}}
+The \textit{ros1\_bridge} package contains a network bridge that allows messages to be exchanged between ROS1 and ROS2 \cite{ros1_bridge}. The bridge will only carry messages in situations where one side sends a message that gets subscribed to on the other side, at least by default. This done to increase computational efficiency. The bridge can be tested by running the command below in ROS2 \cite{ros1_bridge}. 
+
+\begin{tcolorbox}[width=\textwidth,colback={black},colupper=white, title={ubuntu terminal},colbacktitle=gray!125,coltitle=gray!50]\label{shell:echo}    
+   \mint{shell}{ros2 topic echo <topic-name> <topic-type>}
+\end{tcolorbox}  
+
+Running this command will cause a topic to be subscribed to, and its messages to be displayed in the same terminal as the command was run in. \textit{<topic-name>} should be replaced with the name of the desired topic, and \textit{<topic-type>} with the name of the \href{https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/}{message type}. It is critical that the \textit{/scan} topic are "translated" by the bridge, thus this is what the described method was used for. The \textit{/scan} topic are associated with the \href{https://docs.ros.org/en/noetic/api/sensor_msgs/html/msg/LaserScan.html}{\textit{sensor\_msgs/LaserScan}} message format. Thus the following command is run:
+
+\begin{tcolorbox}[width=\textwidth,colback={black},colupper=white, title={ubuntu terminal},colbacktitle=gray!125,coltitle=gray!50]\label{shell:echo1}    
+   \mint{shell}{ros2 topic echo /scan sensor_msgs/LaserScan}
+\end{tcolorbox} 
+
+The \textit{/scan} topic should be visible in both \textit{rqt} and \textit{rviz2}, in ROS2, after running this command (assuming it is visible in ROS1). 
+
+\subsubsubsection{Install and run}
+The package can be installed differently depending on the use case. Installing the pre-built packages is convenient in this project, as the messages used are relayed properly with this instalment of the bridge. The \textit{ros1\_bridge} package can be installed by running the following command: 
+
+\begin{tcolorbox}[width=\textwidth,colback={black},colupper=white, title={ubuntu terminal},colbacktitle=gray!125,coltitle=gray!50]\label{shell:echo1}    
+   \mint{shell}{sudo apt install ros-<ros2 distro>-ros1-bridge}
+\end{tcolorbox} 
+
+Where \textit{<ros2 distro>} should be replaced with the name ROS2 distribution used, this would be \textit{Galactic} in this project. Installing the \textit{ros1\_bridge} for \textit{galactic} can be done by running the following command:
+
+\begin{tcolorbox}[width=\textwidth,colback={black},colupper=white, title={ubuntu terminal},colbacktitle=gray!125,coltitle=gray!50]\label{shell:echo1}    
+   \mint{shell}{sudo apt install ros-galactic-ros1-bridge}
+\end{tcolorbox} 
+
+The bridge, like other packages, have to be sourced before it can be run, but unlike most packages, the bridge requires both ROS1 and ROS2 to be sourced. The bridge itself is sourced together with ROS2, as the binary packages was installed. The following sequence of command can be used to run the bridge.
+
+\begin{tcolorbox}[width=\textwidth,colback={black},colupper=white, title={ubuntu terminal},colbacktitle=gray!125,coltitle=gray!50]\label{shell:echo1}    
+   \mint{shell}{source /opt/ros/noetic/setup.bash}
+   \mint{shell}{source /opt/ros/galactic/setup.bash} 
+   \mint{shell}{ros2 run ros1_bridge dynamic_bridge}
+\end{tcolorbox} 
+
+\subsubsection{\textit{teleop\_twist\_joy}}
+The \textit{teleop\_twist\_joy} package allows the Husky to be remote controlled by a game-controller, or a joy-stick. This function was served by a different joy-stick package in the base project, but this solution stopped working after the SBC where re-flashed. The package comes with a launch file that launches two nodes, one reads the inputs form joy-stick an publishes this to the ROS2 network at the \textit{/joy} topic, the other subscribes to the \textit{/joy} topic and translates button presses to velocity messages.
+
 \subsubsection{\textit{slam\_toolbox}}
 \subsubsection{\textit{nav2\_bringup}}
-\subsubsection{\textit{teleop\_twist\_joy}}
+
 
 %\begin{figure}[H]
 %\centering
