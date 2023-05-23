@@ -1,8 +1,8 @@
 \appendix
 
-\chapter{Project in MAS513}
-\label{Appdix:MAS513}
-\includepdf[pages=-]{appendices/MAS513_Project__Husky_Group.pdf} 
+%\chapter{Project in MAS513}
+%\label{Appdix:MAS513}
+%\includepdf[pages=-]{appendices/MAS513_Project__Husky_Group.pdf} 
 
 \chapter{rqt node-graphs}
 \section{ros1 system}
@@ -25,7 +25,7 @@
   \label{fig:Appdix:rqt:ros2_husky}
 \end{figure}
 
-\chapter{Launch files}
+\chapter{Launch files}\label{Appdix:LaunchFiles}
 Note that some of the text of the launch files have been altered slightly in order to make it fit in the document.
 \section{launchNoRadar1.launch}
 \label{Appdix:launchNoRadar1.launch}
@@ -34,13 +34,14 @@ Note that some of the text of the launch files have been altered slightly in ord
 \section{launchRadar1.launch}
 \label{Appdix:launchRadar1.launch}
 \inputminted{xml}{ros_system/launch/launchRadar1.launch}
-\section{flatten.launch}
-\label{Appdix:flatten.launch}
-\inputminted{xml}{ros_system/launch/src/sublaunch/flatten.launch}
 
 \section{lidar.launch}
 \label{Appdix:lidar.launch}
 \inputminted{xml}{ros_system/launch/src/sublaunch/lidar.launch}
+
+\section{flatten.launch}
+\label{Appdix:flatten.launch}
+\inputminted{xml}{ros_system/launch/src/sublaunch/flatten.launch}
 
 \section{radar.launch}
 \label{Appdix:radar.launch}
