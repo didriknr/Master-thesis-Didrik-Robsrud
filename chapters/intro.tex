@@ -1,90 +1,29 @@
 \chapter{Introduction}
-This template is meant as an example
-of how a technical report can be
-structured. Discuss the table of content and the names of the chapters with the
-group members and supervisor to suit your specific report.\\
+Autonomous vehicles have been used to complete hazardous tasks for several decades, like explosive disposal and work in radioactive areas. They are also used in automated manufacturing \cite{book}. Ensuring that the navigation of Autonomous ground vehicles (AGV) occurs safely is important to achieve efficient operation and avoid casualties. This applies equally to indoor navigation where collisions and obstacles represents significant risks. 
 
-\section{Some \LaTeX{} Examples}
+Normally, the UGVs use sensors of different modality - lidar for 3D perception of the surroundings and distance estimation, monocular camera for 2D perception backed by navigational and machine learning (ML) algorithms for autonomous navigation. However, the lidar used in this thesis possesses a fairly poor blind-zone, which results in objects that are too close and/or too close to the ground not getting detected. The consequence of this blind-zone could lead to costly and tragic accidents. This thesis aims reduce the blind-zone with the help of two radar modules, thus improving the safety of the systems navigation. The range data produced by the lidar are fused together with the range data from the radar modules to give the increased ability to detect close, low to the ground objects towards safer and collision free navigation.
 
-\subsection{Using the Bibliography}
+In this thesis, Husky A200 \cite{husky-ugv} acts as an UGV, equipped with a 3D Ouster lidar \cite{ousterOS1datasheet}. Autonomous navigation is implemented trough the NAV2 package of the ROS2 framework \cite{doi:10.1126/scirobotics.abm6074}. Further, exploiting near field of view of TI radar module AWR1843BOOST \cite{awr1843boostintro} is fused with lidar to compensate for the near field blind zone of the lidar. The radars dependent on ROS1, therefore are all of the range sensors being run in ROS1. Finally, the ROS1 bridge is implemented to integrate the ROS1 part of the system with the ROS2 part making the communication among different sensors, and modules possible with the objective of attaining safer autonomous navigation with collision avoidance.
 
-This is an example of how to use the bibliography and citations. Cite to Einstein \cite{einstein}, or something else \cite{dirac}.\\
+Work done in other project within lidar-radar fusion is presented in chapter \ref{chap:StateOfTheArt}. The chapter presents how the fusion of radar and lidar is used to enhance the different systems ability to detect and avoid objects. A camera based alternative to object detection is presented, but such systems require heavy processing power, and are susceptible to change in light. Lidars capability of precise range estimation combined with radars ability to detect objects can be used to increase the safety of autonomous navigation.
 
+Chapter \ref{chap:Method} presents the methodology employed to address the challenge to overcome. The blind-zone issue is presented trough figures to give a visual understanding of the problem. The experimental setup is presented, first by giving an overview of the system and mentioning some less project specific components, then the range sensors, the Husky and the mounting system developed in this project is presented in more detail. The method chapter continues by providing a simplified representation of the system initialisation on the Husky's onboard computer. The ROS part of the system is discussed next, the ROS1 and the ROS2 part, and how they communicate with each other. 
 
-\subsection{Writing Mathematics}
+The effect of the merging of radar and lidar ranging data is presented in chapter \ref{chap:TestingAndResults}, trough the presentation of testing and results. A navigation test have been done with only lidar and with both lidar and radar to compare the results. The results clearly depicts the advantages that the radars bring to the system. 
 
-This is some examples of how to write math in \LaTeX.
+The discussions chapter, chapter \ref{chap:Discussions}, goes trough some challenges and decisions that were made during the project. The skid steering of the Husky UGV, and the problems it represents to the localisation is elaborated on. why two radar modules was used, and why they are positioned as they are are also discussed. It is also mentioned what effect mounting the radar modules differently may have. The mounting system for the radar modules went trough a failed prototype. The prototype mainly failed due to some dimensions being wrong. on the subject of radars, it is brought up why determining the field of view of the radar modules can be challenging.
 
-\begin{equation}
-    y(x) = \frac{\sin x}{e^x}
-    \label{eq:label1}
-\end{equation}
+Lastly, the thesis' conclusion is presented in chapter \ref{chap:Conclusions}. The chapter summarises the most important achievements and discoveries of this thesis. The increased safety of navigation trough lidar-radar fusion is the most important discovery, and ultematly the goal of the thesis.
 
-We can refer to the equation by using the label, like this: eq \ref{eq:label1}.\\
+\chapter{State of the art} \label{chap:StateOfTheArt}
+Collision avoidance trough object detection is important for several types of systems, but especially important for autonomous systems, like self driving vehicles. Object detection has been made more accurate and reliable trough lidar-radar fusion. This chapter will go trough papers that discusses lidar-radar fusion for object detection and collision avoidance applications. 
 
-We can choose whether to number the equation or not:
-\begin{equation*}
-    y(x) = \frac{\sin x}{e^x}
-\end{equation*}
+The limitations of camera based object detection, like sensitivity to light intensity and heavy image processing, are explored in the first paper \cite{7579940}. A fusion scheme of lidar and radar are proposed as a solution to to the camera based system's shortcomings. Enhanced detection accuracy are achieved by exploiting by combining radar's ability to detect objects with the precise ranging data provided by lidar. This solution is especially suited for pedestrian detection and partially occluded scenarios.
 
-Lastly, we can write inline math: $y = a \cdot x + b$ 
+The second paper \cite{8561087} discusses a method for lidar and radar fusion for the detection of occluded pedestrians. The paper presents occluded depth generation-based method that deals with pedestrian detection, occluded depth estimation and object detection. Object detection in occluded regions are done with radar.
 
-\subsection{Programming Code}
+Object detection and collision avoidance for autonomous driving are the focus of the third paper \cite{9951730}. False positives and missed detection are common errors in traditional object detection methods based on learning. The fusion of lidar and radar are utilised in two algorithms, presented in the paper, that addresses this issue. The first algorithm is based on occupancy grid detection, and the second utilises extended object tracking. The improved object detection achieved trough lidar-radar fusion is used by both methods, bettering collision avoidance.
 
-Inline MATLAB code: \mcode{variabel = max(input)}\\
+obstacle detection and collision avoidance in a rural, unstructured environment, is achieved with a multi-sensor perception system in the fourth paper \cite{6916120}. Long range moving vehicle tracing is handled by radar, while a 3D lidar handles object detection and short range vehicle detection. Accurate detection and tracking of obstacles are used for effective collision avoidance.
 
-MATLAB code in section:
-\begin{lstlisting}
-for i = 1 : 10
-% Skriv kode her
-end
-\end{lstlisting}
-
-
-\newpage
-
-\subsection{Inserting Tables}
-
-\begin{table}[h]
-    \centering
-    \begin{tabular}{c|c}
-        Variable    &   Value   \\
-        \hline
-         $\theta$   &   10      \\
-         $\omega$   &   40 
-    \end{tabular}
-    \caption{The table Caption}
-    \label{tab:label1}
-\end{table}
-
-This table can be referred to by using the label, like this: table \ref{tab:label1}.
-
-
-\subsection{Including figures}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width = 0.7\textwidth]{Figures/Frontpage/forside_master_nor.pdf}
-    \caption{The figure Caption}
-    \label{fig:label1}
-\end{figure}
-
-This figure can be referred to by using the label, like this: figure \ref{fig:label1}.
-
-
-\subsection{Multicolumn}
-
-\begin{minipage}{0.45\textwidth}
-
-    \vspace{-4cm}
-    Text to describe for example a photo. Here we can write really long sentences just to prove the concept of the minipage, which is that the text will follow the width of the minipage that we have specified. In this case it was 45 \% of the total textwidth, with a small spacing in between, using the command "hspace". If we would like the text to start further up in the minipace, we can use the command "vspace" in front of the text, to shift it vertically.
-
-\end{minipage}
-\hspace{0.05\textwidth}
-\begin{minipage}{0.45\textwidth}
- 
-    \includegraphics[width = \textwidth]{Figures/Frontpage/forside_bachelor_nor.pdf}
-
-\end{minipage}
-
-
+The potential of lidar-radar fusion for object detection and collision avoidance are presented by all of the papers. The fusion of lidar and radar allows their strengths, like accurate ranging and object detection, to be combined improve accuracy and reliability of object detection and collision avoidance systems in autonomous driving.

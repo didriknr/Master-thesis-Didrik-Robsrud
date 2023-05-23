@@ -1,8 +1,11 @@
 \chapter{Theory}
+%aj an over view what is included in the chapter
 \section{Ranging sensors}
-both lidar and radar are used in this project, 
+
+%aj above line is not necessary, so removed it
 \subsection{Time of flight}
-The wave propagation speed for a wave is used in Time of flight sensors (TOF). Typical use case are electromagnetic - or acoustic waves. Equation \ref{eq:TOF1} is used to calculate the distance $d$ traversed by a wave \cite{introductionToMobileRobots}.   
+The wave propagation speed for a wave is used in Time of flight sensors (TOF). Typical use case are electromagnetic - or acoustic waves. Equation \ref{eq:TOF1} is used to calculate the distance $d$ traversed by a wave \cite{introductionToMobileRobots}.
+%aj reference is [29]. I do not understand why your referece are not in sequence ?
 \begin{equation} \label{eq:TOF1}
     d = c \cdot T
 \end{equation}
@@ -19,6 +22,7 @@ Time of flight sensors are often used to calculate the distance to a object by e
 This method of ranging is suitable for acoustic waves as they travel relatively slowly, compared with electromagnetic waves which travel about a million times faster. The electronics required for electromagnetic TOF-sensors are more expensive than the electronics required for acoustic TOF-sensors. Other ranging methods are therefore usually used instead of TOF when it comes to electromagnetic waves \cite{introductionToMobileRobots}.
 
 \subsection{Continuous Wave}
+%aj you can use the equations form radar lecture to give the equation of distance. in all case, the equation of distance has to be included in the chapter
 A continuous wave can be emitted instead of burst of waves. The wave could be a simple sinusoidal wave that are emitted continuously. The received signal are mixed together with the emitted signal. Mixing of signals is done by multiplying them. Equation \ref{eq:x1x2} shows properties of a sent signal $x_1(t)$ and received signal $x_2(2)$.
 \begin{equation} \label{eq:x1x2}
     x_1(t) = \sin(\omega_{1}(t + \phi_{1})), \hspace{1mm} x_2(t) = \sin(\omega_{2}(t + \phi_{2}))
@@ -75,6 +79,8 @@ Thus the beat frequency will be the same for a object moving towards the sender/
 
 Distance between the sender/receiver and the object is found by considering the time shift between the emitted and revived signal. This system is only suitable for resolving distances shorter or equal one wavelength, due to the periodic nature of the emitted wave \cite{douglas2022fmcw}. This renders the system useless for measuring any significant distances, especially when using millimetre waves.   
 
+%aj some theory on navigation, including Kalman, sensor fusion, odometry ...
+
 \section{ROS}
 Robot Operating System (ROS) is a open-source collection of software that are used as a framework for robotics. ROS has been in development in over ten years and it is an important part of the field of robotics. ROS is used in research, teaching and industrial applications. ROS contains many pre-made packages that can make it simpler to achieve advanced advanced functionality, like autonomous navigation \cite{WhyROS}. 
 
@@ -96,6 +102,3 @@ There are several aspects to ROS communication, but the most important ones to u
 The simplest way to initialise a ROS-node is to first start the roscore, then run the "rosrun" command in the Ubuntu terminal. Running a ROS-node can look something like the following example.  
 \mint{css}{rosrun "package" "node-name" "argument-name":="value"}
 However, This method becomes cumbersome once there is a need for running several nodes, with their own arguments. Each node would require their own terminal window, in addition to the roscore. The solution to this issue is launch files. Launch files makes it possible 
-
-\subsection{transforms tf2 or whatever}
-\subsection{some nodes used?}

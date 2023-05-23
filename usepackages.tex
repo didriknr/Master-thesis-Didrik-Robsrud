@@ -14,7 +14,7 @@
 
 %% Andre pakker %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{hyperref}
-\usepackage{biblatex}
+\usepackage[sorting=none]{biblatex}
 \usepackage{csquotes}
 \usepackage{graphicx} %%For loading graphic files
 \usepackage{amsmath}
@@ -96,7 +96,21 @@
 %\usepackage{wrapfig}
 
 \newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+%\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+%\setcounter{secnumdepth}{4}
+%\setcounter{tocdepth}{4}
 
 \usepackage{tcolorbox}
+\usepackage{algorithm, algorithmic} %
+
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+%\Urlmuskip=0mu plus 1mu\relax
+
+\usepackage{url}
+
+%%% --- The following two lines are what needs to be added --- %%%
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000} % fixes urls
